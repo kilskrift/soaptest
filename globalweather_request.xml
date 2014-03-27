@@ -1,0 +1,40 @@
+1.1
+<soapenv:Envelope 
+    xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
+    xmlns:web="http://www.webserviceX.NET">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <web:GetWeather>
+         <!--Optional:-->
+         <web:CityName>Alicante</web:CityName>
+         <!--Optional:-->
+         <web:CountryName>Spain</web:CountryName>
+      </web:GetWeather>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+1.2
+<soap:Envelope 
+    xmlns:soap="http://www.w3.org/2003/05/soap-envelope" 
+    xmlns:web="http://www.webserviceX.NET">
+   <soap:Header/>
+   <soap:Body>
+      <web:GetWeather>
+         <!--Optional:-->
+         <web:CityName>Alicante</web:CityName>
+         <!--Optional:-->
+         <web:CountryName>Spain</web:CountryName>
+      </web:GetWeather>
+   </soap:Body>
+</soap:Envelope>
+
+
+
+
+
+------------
+
+
+
+
+
