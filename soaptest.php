@@ -57,7 +57,7 @@ class OrdersToRetrieve {
 }
 $ordersToRetrieve = new OrdersToRetrieve;
 
-class Request {
+class GetOrdersRequest {
     public $Authentication;
     public $OrdersToRetrieve;
     
@@ -67,12 +67,12 @@ class Request {
     }
 }
 
-$req = new Request( $authentication, $ordersToRetrieve );
-$data = new SoapVar( $req, SOAP_ENC_OBJECT, "_", "__", "request", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service"  );
+$req = new GetOrdersRequest( $authentication, $ordersToRetrieve );
+$data = new SoapVar( $req, SOAP_ENC_OBJECT, "-", "--", "request", "http://tempuri.org/");
 
 try {          
     $return = $client->__soapCall( "GetOrders", array( $data ), array(
-            'soapaction' => "http://tempuri.org/IAdminService/GetOrders"
+            "soapaction" => "http://tempuri.org/IAdminService/GetOrders"
         )
     );
     
