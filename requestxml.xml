@@ -5,10 +5,18 @@
 <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">
     <SOAP-ENV:Body>
         <ns1:GetOrders>
-            <Authentication>
-                <Password>sverigetest</Password>
-                <Username>sverigetest</Username>
-            </Authentication>
+            <request>
+                <Authentication>
+                    <Password>sverigetest</Password>
+                    <Username>sverigetest</Username>
+                </Authentication>
+                <OrdersToRetrieve>
+                    <GetOrderInformation>
+                        <ClientId>79021</ClientId>
+                        <SveaOrderId>327410</SveaOrderId>
+                    </GetOrderInformation>
+                </OrdersToRetrieve>
+            </request>
         </ns1:GetOrders>
     </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

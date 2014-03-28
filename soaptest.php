@@ -42,15 +42,40 @@ class Authentication {
     public $Username = "sverigetest";
 }
 $authentication = new Authentication;
-$data = new SoapVar( $authentication, SOAP_ENC_OBJECT, "_", "__", "Authentication" );
 
-try {
-//    $client->__setLocation("https://partnerweb.sveaekonomi.se/WebPayAdminService_Test/AdminService.svc/backward");            
+class GetOrderInformation {
+    public $ClientId = 79021;
+    public $SveaOrderId = 327410;
+}
+
+class OrdersToRetrieve {
+    public $GetOrderInformation;
+    
+    function __construct() {
+         $this->GetOrderInformation = new GetOrderInformation;
+    }
+}
+$ordersToRetrieve = new OrdersToRetrieve;
+
+class Request {
+    public $Authentication;
+    public $OrdersToRetrieve;
+    
+    function __construct( $authentication, $ordersToRetrieve ) {
+        $this->Authentication = $authentication;
+        $this->OrdersToRetrieve = $ordersToRetrieve;
+    }
+}
+
+$req = new Request( $authentication, $ordersToRetrieve );
+$data = new SoapVar( $req, SOAP_ENC_OBJECT, "_", "__", "request" );
+
+try {          
     $return = $client->__soapCall( "GetOrders", array( $data ), array(
             'soapaction' => "http://tempuri.org/IAdminService/GetOrders"
         )
     );
-//    $return = $client->GetOrders( array() );           
+    
 } catch (\SoapFault $e) {
     echo "<pre>";
     print_r($e);
