@@ -70,8 +70,31 @@ class GetOrdersRequest {
 $req = new GetOrdersRequest( $authentication, $ordersToRetrieve );
 $data = new SoapVar( $req, SOAP_ENC_OBJECT, "-", "--", "request", "http://tempuri.org/");
 
+$authdata = new SoapVar( $authentication, SOAP_ENC_OBJECT, "-", "--", "Authentication", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
+
+
+
+class Authentication2 {
+    public $Password;
+    public $Username;
+    
+    function __construct() {
+        $this->Password = new SoapVar( "sverigetest", XSD_STRING, "-", "--", "Password", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
+        $this->Username = new SoapVar( "sverigetest", XSD_STRING, "-", "--", "Username", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");      
+        
+    }
+}
+$authentication2 = new Authentication2;
+
+
+$authdata2 = new SoapVar( $authentication2, SOAP_ENC_OBJECT, "-", "--", "Authentication", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
+
+//var_dump( $data );
+//var_dump( $authdata );
+//die;
+
 try {          
-    $return = $client->__soapCall( "GetOrders", array( $data ), array(
+    $return = $client->__soapCall( "GetOrders", array( $authdata2 ), array(
             "soapaction" => "http://tempuri.org/IAdminService/GetOrders"
         )
     );
