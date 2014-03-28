@@ -68,7 +68,7 @@ class Request {
 }
 
 $req = new Request( $authentication, $ordersToRetrieve );
-$data = new SoapVar( $req, SOAP_ENC_OBJECT, "_", "__", "request" );
+$data = new SoapVar( $req, SOAP_ENC_OBJECT, "_", "__", "request", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service"  );
 
 try {          
     $return = $client->__soapCall( "GetOrders", array( $data ), array(

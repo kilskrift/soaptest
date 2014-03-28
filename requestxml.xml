@@ -22,6 +22,27 @@
 </SOAP-ENV:Envelope>
 
 
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/" xmlns:ns2="http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service">
+    <SOAP-ENV:Body>
+        <ns1:GetOrders>
+            <ns2:request>
+                <Authentication>
+                    <Password>sverigetest</Password>
+                    <Username>sverigetest</Username>
+                </Authentication>
+                <OrdersToRetrieve>
+                    <GetOrderInformation>
+                        <ClientId>79021</ClientId>
+                        <SveaOrderId>327410</SveaOrderId>
+                    </GetOrderInformation>
+                </OrdersToRetrieve>
+            </ns2:request>
+        </ns1:GetOrders>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+
 // SoapUI 1.1
 
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:dat="http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service">
