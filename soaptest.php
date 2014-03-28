@@ -12,47 +12,33 @@ $client = new SoapClient(
     )
 );
 
-//$data = 
-//    new SoapParam( 
-//        array(    
-//            new SoapParam(   
-//                array(  
-//                    new SoapParam( "sverigetest", "Password" ),
-//                    new SoapParam( "sverigetest", "Username" ) 
-//                ), 
-//                "Authentication" 
-//            ),
-//            new SoapParam(
-//                new SoapParam(   
-//                    array(  
-//                        new SoapParam( "79021", "ClientId" ),
-//                        new SoapParam( "327410", "SveaOrderId" ) 
-//                    ), 
-//                    "GetOrderInformation" 
-//                ),
-//                "OrdersToRetrieve"
-//            )
-//        ),
-//        "request"
-//    )
-//;
-
 class Authentication {
-    public $Password = "sverigetest";
-    public $Username = "sverigetest";
+    public $Password;
+    public $Username;
+    
+    function __construct( $password, $username ) {
+        $this->Password = new SoapVar( $password, XSD_STRING,"-","--","Password","http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
+        $this->Username = new SoapVar( $username, XSD_STRING,"-","--","Username","http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service"); 
+    }
 }
-$authentication = new Authentication;
+$authentication = new Authentication( "sverigetest", "sverigetest" );
 
 class GetOrderInformation {
-    public $ClientId = 79021;
-    public $SveaOrderId = 327410;
+    public $ClientId;// = 79021;
+    public $SveaOrderId;// = 327410;
+    
+    function __construct( $clientId, $sveaOrderId ) {
+        $this->ClientId = new SoapVar( $clientId, XSD_STRING,"-","--","ClientId","http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
+        $this->SveaOrderId = new SoapVar( $sveaOrderId, XSD_STRING,"-","--","SveaOrderId","http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service"); 
+    }
 }
 
 class OrdersToRetrieve {
     public $GetOrderInformation;
     
     function __construct() {
-         $this->GetOrderInformation = new GetOrderInformation;
+        $getOrderInformation = new GetOrderInformation("79021", "327410");
+        $this->GetOrderInformation = new SoapVar( $getOrderInformation, SOAP_ENC_OBJECT, "-","--","OrdersToRetrieve","http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
     }
 }
 $ordersToRetrieve = new OrdersToRetrieve;
@@ -62,39 +48,22 @@ class GetOrdersRequest {
     public $OrdersToRetrieve;
     
     function __construct( $authentication, $ordersToRetrieve ) {
-        $this->Authentication = $authentication;
-        $this->OrdersToRetrieve = $ordersToRetrieve;
+        
+        $this->Authentication = new SoapVar( $authentication, SOAP_ENC_OBJECT, "-","--","Authentication","http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
+        $this->OrdersToRetrieve = new SoapVar( $ordersToRetrieve, SOAP_ENC_OBJECT, "-","--","OrdersToRetrieve","http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");;
     }
 }
 
 $req = new GetOrdersRequest( $authentication, $ordersToRetrieve );
 $data = new SoapVar( $req, SOAP_ENC_OBJECT, "-", "--", "request", "http://tempuri.org/");
 
-$authdata = new SoapVar( $authentication, SOAP_ENC_OBJECT, "-", "--", "Authentication", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
-
-
-
-class Authentication2 {
-    public $Password;
-    public $Username;
-    
-    function __construct() {
-        $this->Password = new SoapVar( "sverigetest", XSD_STRING, "-", "--", "Password", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
-        $this->Username = new SoapVar( "sverigetest", XSD_STRING, "-", "--", "Username", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");      
-        
-    }
-}
-$authentication2 = new Authentication2;
-
-
-$authdata2 = new SoapVar( $authentication2, SOAP_ENC_OBJECT, "-", "--", "Authentication", "http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service");
 
 //var_dump( $data );
 //var_dump( $authdata );
 //die;
 
 try {          
-    $return = $client->__soapCall( "GetOrders", array( $authdata2 ), array(
+    $return = $client->__soapCall( "GetOrders", array( $data ), array(
             "soapaction" => "http://tempuri.org/IAdminService/GetOrders"
         )
     );
@@ -109,4 +78,13 @@ try {
     echo "</pre>";
     die();
 }
+
+echo "<pre>";
+echo "<xmp>";
+echo $client->__getLastRequest() . "\n";
+echo $client->__getLastRequestHeaders();
+
+echo $return;
+echo "</xmp>";
+echo "</pre>";
 ?>
