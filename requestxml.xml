@@ -2,13 +2,13 @@
 // soaptest request xml 
 
 <?xml version="1.0" encoding="UTF-8"?>
-<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">
     <SOAP-ENV:Body>
         <ns1:GetOrders>
-            <param0>
-                <xsd:string>sverigetest</xsd:string>
-                <xsd:string>sverigetest</xsd:string>
-            </param0>
+            <Authentication>
+                <Password>sverigetest</Password>
+                <Username>sverigetest</Username>
+            </Authentication>
         </ns1:GetOrders>
     </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

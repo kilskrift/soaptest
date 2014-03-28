@@ -37,19 +37,12 @@ $client = new SoapClient(
 //    )
 //;
 
-//class Authentication {
-//    public $Password = "sverigetest";
-//    public $Username = "sverigetest";
-//}
-//$authentication = new Authentication;
-//$data = new SoapVar( $authentication, SOAP_ENC_OBJECT );
-
-$authentication = array(
-    'Password' => "sverigetest",
-    'Username' => "sverigetest"
-);
-$data = new SoapVar( $authentication, SOAP_ENC_ARRAY );
-
+class Authentication {
+    public $Password = "sverigetest";
+    public $Username = "sverigetest";
+}
+$authentication = new Authentication;
+$data = new SoapVar( $authentication, SOAP_ENC_OBJECT, "_", "__", "Authentication" );
 
 try {
 //    $client->__setLocation("https://partnerweb.sveaekonomi.se/WebPayAdminService_Test/AdminService.svc/backward");            
