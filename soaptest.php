@@ -12,32 +12,38 @@ $client = new SoapClient(
     )
 );
 
-//$data = new SoapParam("foo", "Authentication");
+//$data = 
+//    new SoapParam( 
+//        array(    
+//            new SoapParam(   
+//                array(  
+//                    new SoapParam( "sverigetest", "Password" ),
+//                    new SoapParam( "sverigetest", "Username" ) 
+//                ), 
+//                "Authentication" 
+//            ),
+//            new SoapParam(
+//                new SoapParam(   
+//                    array(  
+//                        new SoapParam( "79021", "ClientId" ),
+//                        new SoapParam( "327410", "SveaOrderId" ) 
+//                    ), 
+//                    "GetOrderInformation" 
+//                ),
+//                "OrdersToRetrieve"
+//            )
+//        ),
+//        "request"
+//    )
+//;
 
-$data = 
-    new SoapParam( 
-        array(    
-            new SoapParam(   
-                array(  
-                    new SoapParam( "sverigetest", "Password" ),
-                    new SoapParam( "sverigetest", "Username" ) 
-                ), 
-                "Authentication" 
-            ),
-            new SoapParam(
-                new SoapParam(   
-                    array(  
-                        new SoapParam( "79021", "ClientId" ),
-                        new SoapParam( "327410", "SveaOrderId" ) 
-                    ), 
-                    "GetOrderInformation" 
-                ),
-                "OrdersToRetrieve"
-            )
-        ),
-        "request"
-    )
-;
+class Authentication {
+    public $Password = "sverigetest";
+    public $Username = "sverigetest";
+}
+
+$authentication = new Authentication;
+$data = new SoapVar( $authentication, SOAP_ENC_OBJECT );
 
 try {
 //    $client->__setLocation("https://partnerweb.sveaekonomi.se/WebPayAdminService_Test/AdminService.svc/backward");            

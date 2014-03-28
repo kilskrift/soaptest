@@ -1,55 +1,18 @@
 
-// array( SoapParam( "foo", "Authentication" ) )
+// soaptest request xml 
 
 <?xml version="1.0" encoding="UTF-8"?>
 <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/">
     <SOAP-ENV:Body>
         <ns1:GetOrders>
-            <Authentication>foo</Authentication>
+            <param0>
+                <Password>sverigetest</Password>
+                <Username>sverigetest</Username>
+            </param0>
         </ns1:GetOrders>
     </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>
 
-// entire request 
-
-<?xml version="1.0" encoding="UTF-8"?>
-<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/">
-    <SOAP-ENV:Body>
-        <ns1:GetOrders>
-            <request>
-                <SOAP-ENC:Struct>
-                    <param_name>Authentication</param_name>
-                    <param_data>
-                        <SOAP-ENC:Struct>
-                            <param_name>Password</param_name>
-                            <param_data>sverigetest</param_data>
-                        </SOAP-ENC:Struct>
-                        <SOAP-ENC:Struct>
-                            <param_name>Username</param_name>
-                            <param_data>sverigetest</param_data>
-                        </SOAP-ENC:Struct>
-                    </param_data>
-                </SOAP-ENC:Struct>
-                <SOAP-ENC:Struct>
-                    <param_name>OrdersToRetrieve</param_name>
-                    <param_data>
-                        <param_name>GetOrderInformation</param_name>
-                        <param_data>
-                            <SOAP-ENC:Struct>
-                                <param_name>ClientId</param_name>
-                                <param_data>79021</param_data>
-                            </SOAP-ENC:Struct>
-                            <SOAP-ENC:Struct>
-                                <param_name>SveaOrderId</param_name>
-                                <param_data>327410</param_data>
-                            </SOAP-ENC:Struct>
-                        </param_data>
-                    </param_data>
-                </SOAP-ENC:Struct>
-            </request>
-        </ns1:GetOrders>
-    </SOAP-ENV:Body>
-</SOAP-ENV:Envelope>
 
 // SoapUI 1.1
 
