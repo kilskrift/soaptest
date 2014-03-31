@@ -3,10 +3,14 @@ namespace Payment\SveaWebpay;
 class AdminService
 {
     protected $client;
+        
+// As creating a soapclient using the AdminService wdsl from https://partnerweb.sveaekonomi.se/WebPayAdminService_test/AdminService.svc?wsdl seems to confuse the php soapclient (it seem to alway use the soap 1.2. .../secure endpoint, which is currently not supported by the service) itself), 
  
+// 1. We create the PHP SoapClient without specifying a wdsl, instead making the necessary settings in the arguments array. We make sure to set 'location' to the service SOAP 1.1. endpoint, .../backward, and 'use' OAP_LITERAL encoding, along with http header SOAP 1.1. encoding (text/xml).
+
     public function __construct()
     {
-        $this->client = new \SoapClient(
+         $this->client = new \SoapClient(
             null,
             array(
                 'location' => "https://partnerweb.sveaekonomi.se/WebPayAdminService_Test/AdminService.svc/backward",
@@ -40,7 +44,7 @@ class AdminService
         
         //yay!
         echo "<pre>";
-        print_r($adminData);
+        print_r($return);
         echo "<xmp>";
         echo $this->client->__getLastRequest() . "\n";
         echo $this->client->__getLastRequestHeaders();
@@ -51,6 +55,10 @@ class AdminService
     }
 }
  
+// We now need to make sure that the service GetOrders request is made with the argument data passsed in well-formed xml. (I used the request XML from a call to the service made via SoapUI to ensure that the data is passed in the "correc" manner. (We're investigating why SoapUI can digest the service wdsl whereas php SOAP can't at the moment, so this is sort of a workaround for the time being.)
+
+// 2. We build the complexType xml by using SoapVar on php objects, making sure we specify xml node names and relevant namespace for each node (this can perhaps be done more elegantly using i.e. classmap, even if specifying a wdsl upon soapclient instantiation?)
+
 class Authentication {
     public $Password;
     public $Username;
@@ -94,24 +102,16 @@ class GetOrdersRequest {
 }
 
 $req = new GetOrdersRequest( $authentication, $ordersToRetrieve );
+
+// The service functions and expected request format type can be fetched by instantiating a soapclient in wdsl mode and calling __getFunctions() and __getTypes, see the companion file dump_admin_service_functions_and_types.php.
+// 
+// 3. We build the outer request, making sure that we follow the chosen soapActoin type and format (i.e. GetOrdersRequest) given in the wdsl (make sure to include the authentication in the request soap body, not the soap header or the the soap request http header). 
+
+$action = "GetOrders";
 $params = new \SoapVar( $req, SOAP_ENC_OBJECT, "-", "--", "request", "http://tempuri.org/");
 
-
+// do the request
 $adminService = new \Payment\SveaWebpay\AdminService;
-//$params = array(
-//    'Authentication' => array(
-//        'Username' => 'sverigetest',
-//        'Password' => 'sverigetest',        
-//    ),
-//    'OrdersToRetrieve' => array(
-//        'GetOrderInformation' => array(
-//            'ClientId' => 79021,
-//            'SveaOrderId' => 310256
-//        )
-//    )
-//);
-//$adminData = $adminService->doRequest('GetOrders', $params);
-
-$adminData = $adminService->doRequest('GetOrders', array( $params) );
+$adminData = $adminService->doRequest( $action, array( $params ) ); // 2nd arg should be array
 
 ?>
