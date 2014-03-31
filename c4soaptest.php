@@ -52,4 +52,7 @@ $params = array(
 $adminData = $adminService->doRequest('GetOrders', $params);
 
 
+//    [message:protected] => The message with To '' cannot be processed at the receiver, due to an AddressFilter mismatch at the EndpointDispatcher.  Check that the sender and receiver's EndpointAddresses agree.
+//
+
 ?>
