@@ -28,8 +28,8 @@ class AdminService
             echo "<pre>";
             print_r($e);
             echo "<xmp>";
-            echo $client->__getLastRequest() . "\n";
-            echo $client->__getLastRequestHeaders();
+            echo $this->client->__getLastRequest() . "\n";
+            echo $this->client->__getLastRequestHeaders();
             echo "</xmp>";
             echo "</pre>";
             die();       
