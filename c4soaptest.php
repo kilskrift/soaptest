@@ -10,9 +10,6 @@ class AdminService
             'https://partnerweb.sveaekonomi.se/WebPayAdminService_test/AdminService.svc?wsdl',
             array(
                 'location' => "https://partnerweb.sveaekonomi.se/WebPayAdminService_Test/AdminService.svc/backward",
-    
-                'username' => 'sverigetest',
-                'password' => 'sverigetest',
                 'exceptions'=> 1,
                 'connection_timeout' => 60,
                 'trace' => 1,
@@ -43,6 +40,10 @@ class AdminService
  
 $adminService = new \Payment\SveaWebpay\AdminService;
 $params = array(
+    'Authentication' => array(
+        'Username' => 'sverigetest',
+        'Password' => 'sverigetest',        
+    ),
     'OrdersToRetrieve' => array(
         'GetOrderInformation' => array(
             'ClientId' => 79021,
@@ -52,6 +53,6 @@ $params = array(
 );
 $adminData = $adminService->doRequest('GetOrders', $params);
 
-//The header 'Action' from the namespace 'http://www.w3.org/2005/08/addressing' was not understood by the recipient of this message, causing the message to not be processed.  This error typically indicates that the sender of this message has enabled a communication protocol that the receiver cannot process.  Please ensure that the configuration of the client's binding is consistent with the service's binding.
+//The formatter threw an exception while trying to deserialize the message: Error in deserializing body of request message for operation 'GetOrders'. End element 'Body' from namespace 'http://schemas.xmlsoap.org/soap/envelope/' expected. Found element 'param1' from namespace ''. Line 2, position 150.
 
 ?>
