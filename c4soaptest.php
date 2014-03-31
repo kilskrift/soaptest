@@ -9,12 +9,14 @@ class AdminService
         $this->client = new \SoapClient(
             'https://partnerweb.sveaekonomi.se/WebPayAdminService_test/AdminService.svc?wsdl',
             array(
+                'location' => "https://partnerweb.sveaekonomi.se/WebPayAdminService_Test/AdminService.svc/backward",
+    
                 'username' => 'sverigetest',
                 'password' => 'sverigetest',
                 'exceptions'=> 1,
                 'connection_timeout' => 60,
                 'trace' => 1,
-                'soap_version' => SOAP_1_2
+                'soap_version' => SOAP_1_1
             )
         );
     }
@@ -51,8 +53,6 @@ $params = array(
 );
 $adminData = $adminService->doRequest('GetOrders', $params);
 
-
-//    [message:protected] => The message with To '' cannot be processed at the receiver, due to an AddressFilter mismatch at the EndpointDispatcher.  Check that the sender and receiver's EndpointAddresses agree.
-//
+//The header 'Action' from the namespace 'http://www.w3.org/2005/08/addressing' was not understood by the recipient of this message, causing the message to not be processed.  This error typically indicates that the sender of this message has enabled a communication protocol that the receiver cannot process.  Please ensure that the configuration of the client's binding is consistent with the service's binding.
 
 ?>
