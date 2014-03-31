@@ -27,9 +27,14 @@ class AdminService
             $this->client->__setSoapHeaders($actionHeader);
             $return = $this->client->__soapCall($action, $data);
         } catch (\SoapFault $e) {
+            echo "<pre>";
             print_r($e);
-            echo $this->client->__getLastRequest() . "\n";
-            die();
+            echo "<xmp>";
+            echo $client->__getLastRequest() . "\n";
+            echo $client->__getLastRequestHeaders();
+            echo "</xmp>";
+            echo "</pre>";
+            die();       
         }
         return $return;
     }
