@@ -1,26 +1,6 @@
 
 // soaptest request xml 
 
-<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://tempuri.org/" xmlns:ns2="http://schemas.datacontract.org/2004/07/DataObjects.Admin.Service">
-    <SOAP-ENV:Body>
-        <ns1:GetOrders>
-            <ns1:request>
-                <ns2:Authentication>
-                    <ns2:Password>sverigetest</ns2:Password>
-                    <ns2:Username>sverigetest</ns2:Username>
-                </ns2:Authentication>
-                <ns2:OrdersToRetrieve>
-                    <ns2:GetOrderInformation>
-                        <ns2:ClientId>79021</ns2:ClientId>
-                        <ns2:SveaOrderId>327410</ns2:SveaOrderId>
-                    </ns2:GetOrderInformation>
-                </ns2:OrdersToRetrieve>
-            </ns1:request>
-        </ns1:GetOrders>
-    </SOAP-ENV:Body>
-</SOAP-ENV:Envelope>
-
-
 
 
 // SoapUI 1.1
