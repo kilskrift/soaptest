@@ -24,10 +24,9 @@ class AdminService
     public function doRequest($action, $data = array())
     {
         try {
-            $actionHeader = new \SoapHeader('http://www.w3.org/2005/08/addressing', 'Action', 'http://tempuri.org/IAdminService/'.$action, true);
-            //Add the headers into the client
-            $this->client->__setSoapHeaders($actionHeader);
-            $return = $this->client->__soapCall($action, $data);
+            $return = $this->client->__soapCall($action, $data, array(
+                "soapaction" => 'http://tempuri.org/IAdminService/'.$action,
+            ));
         } catch (\SoapFault $e) {
             echo "<pre>";
             print_r($e);
